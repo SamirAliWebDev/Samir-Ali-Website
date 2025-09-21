@@ -48,7 +48,7 @@ export const PROJECTS: Project[] = [
     title: 'Spotify Artists Trends',
     description: 'Analyzed Spotify data to identify trending artists and track their popularity over time. Built a dashboard to visualize key metrics and uncover patterns in music trends.',
     tags: ['Python', 'Pandas', 'API', 'Data Visualization'],
-    imageUrl: 'https://picsum.photos/seed/project2/600/400',
+    imageUrl: 'https://i.postimg.cc/ZRcb4tkw/Gemini-Generated-Image-q2r778q2r778q2r7.png',
     repoUrl: 'https://github.com/SamirAliWebDev/Spotify-Artist_trend',
   },
 ];
