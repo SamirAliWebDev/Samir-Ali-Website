@@ -11,7 +11,7 @@ const Contact: React.FC = () => {
         <p className="max-w-2xl mx-auto text-lg text-muted my-8">
           I'm currently seeking new opportunities and am open to freelance projects. If you have a project in mind, a question, or just want to say hello, feel free to reach out.
         </p>
-        <a href="mailto:john.doe@example.com" className="inline-block bg-accent text-white font-bold py-4 px-10 rounded-full hover:bg-blue-500 transition-all duration-300 shadow-lg text-lg">
+        <a href="mailto:samirali.webdev@gmail.com" className="inline-block bg-accent text-white font-bold py-4 px-10 rounded-full hover:bg-blue-500 transition-all duration-300 shadow-lg text-lg">
           Say Hello
         </a>
         <div className="flex justify-center space-x-6 mt-12">

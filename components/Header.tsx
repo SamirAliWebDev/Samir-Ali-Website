@@ -26,7 +26,7 @@ const Header: React.FC = () => {
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-secondary/80 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}>
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <a href="#hero" onClick={(e) => handleLinkClick(e, '#hero')} className="text-2xl font-bold text-white tracking-wider">
-          JD<span className="text-accent">.</span>
+          SA<span className="text-accent">.</span>
         </a>
         <nav className="hidden md:flex space-x-8">
           {NAV_LINKS.map((link) => (

@@ -14,21 +14,21 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: 'Programming & Databases',
     skills: [
-      { name: 'Python', icon: PythonIcon, level: 95 },
-      { name: 'SQL', icon: SQLIcon, level: 90 },
-      { name: 'Pandas & NumPy', icon: PandasIcon, level: 95 },
+      { name: 'Python', icon: PythonIcon, level: 100 },
+      { name: 'SQL & PostgreSQL', icon: SQLIcon, level: 90 },
+      { name: 'Pandas & NumPy', icon: PandasIcon, level: 100 },
     ],
   },
   {
     title: 'Data Visualization & BI',
     skills: [
-      { name: 'Power BI', icon: PowerBIIcon, level: 85 },
-      { name: 'Matplotlib/Seaborn', icon: MatplotlibIcon, level: 88 },
-      { name: 'Excel', icon: ExcelIcon, level: 98 },
+      { name: 'Power BI', icon: PowerBIIcon, level: 80 },
+      { name: 'Matplotlib/Seaborn', icon: MatplotlibIcon, level: 100 },
+      { name: 'Excel', icon: ExcelIcon, level: 90 },
     ],
   },
   {
-    title: 'Machine Learning & Cloud',
+    title: 'Tools & Technologies',
     skills: [
       { name: 'Git & GitHub', icon: GitIcon, level: 90 },
       { name: 'Jupyter Notebook', icon: JupyterIcon, level: 95 },
@@ -41,7 +41,7 @@ export const PROJECTS: Project[] = [
     title: 'Student Scholarship Analysis',
     description: 'Analyzed student performance data to identify key factors influencing scholarship awards and highest scores achieved, providing insights for educational institutions.',
     tags: ['Python', 'Pandas', 'Data Analysis', 'Visualization'],
-    imageUrl: 'https://picsum.photos/seed/project1/600/400',
+    imageUrl: 'https://i.postimg.cc/QMwP7Bjw/Gemini-Generated-Image-5wkf785wkf785wkf.png',
     repoUrl: 'https://github.com/SamirAliWebDev/Student_highest_scores_achieved-and-Scholarships_Analysis',
   },
   {
@@ -54,36 +54,42 @@ export const PROJECTS: Project[] = [
 ];
 
 export const EXPERIENCE: ExperienceItem[] = [
-  {
-    date: '2021 - Present',
-    title: 'Senior Data Analyst',
-    company: 'Innovatech Solutions',
-    description: 'Lead analytics projects, mentor junior analysts, and develop predictive models to drive strategic business decisions. Specialized in customer analytics and A/B testing.'
-  },
-  {
-    date: '2019 - 2021',
-    title: 'Data Analyst',
-    company: 'Data Insights Co.',
-    description: 'Extracted and analyzed large datasets to create reports and dashboards for stakeholders. Automated reporting processes, saving 10+ hours per week.'
-  },
-  {
-    date: '2018',
-    title: 'M.S. in Data Science',
-    company: 'University of Technology',
-    description: 'Graduated with distinction. Thesis focused on applying NLP techniques to analyze customer sentiment from social media data.'
-  }
+    {
+        date: 'July 2025 - Present',
+        title: 'Brazilian Ecommerce Insights',
+        company: 'Personal Project',
+        description: 'Analyzed Ecommerce datasets to find total revenue, total orders, and monthly trends for orders and revenue. Created a dashboard using Power BI to visualize the findings.'
+    },
+    {
+        date: 'June 2025 - July 2025',
+        title: 'Spotify Artists Playlists',
+        company: 'Personal Project',
+        description: 'Filtered and analyzed a dataset of Spotify artist playlists to determine monthly song additions, unique artist counts, and identify the top 5 artists with the most popular playlists.'
+    },
+    {
+        date: '2024 - 2025',
+        title: 'Computer Science Studies',
+        company: 'Kips College | Pakistan',
+        description: 'Pursuing studies in Computer Science, with an expected completion in 2025.'
+    },
+    {
+        date: '2021 - 2023',
+        title: 'High School Diploma, Computer Science',
+        company: 'Bahria Foundation College | Pakistan',
+        description: 'Completed school education with a focus on the Computer Science field.'
+    }
 ];
 
 export const STATS: Stat[] = [
-    { value: 5, label: 'Years of Experience', suffix: '+' },
+    { value: 1, label: 'Year of Experience', suffix: '' },
     { value: 42, label: 'Projects Completed', suffix: '' },
     { value: 95, label: 'Prediction Accuracy', suffix: '%' },
-    { value: 10, label: 'Certifications', suffix: '+' }
+    { value: 2, label: 'Certifications', suffix: '+' }
 ];
 
 
 export const SOCIAL_LINKS = [
-    { name: 'GitHub', icon: GithubIcon, url: '#' },
-    { name: 'LinkedIn', icon: LinkedinIcon, url: '#' },
-    { name: 'Email', icon: MailIcon, url: 'mailto:john.doe@example.com' }
+    { name: 'GitHub', icon: GithubIcon, url: 'https://github.com/SamirAliWebDev' },
+    { name: 'LinkedIn', icon: LinkedinIcon, url: 'https://www.linkedin.com/in/SamirAliWebDev' },
+    { name: 'Email', icon: MailIcon, url: 'mailto:samirali.webdev@gmail.com' }
 ];

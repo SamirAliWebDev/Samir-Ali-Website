@@ -12,19 +12,19 @@ const About: React.FC = () => {
           <div className="lg:w-1/3">
             <img 
               src="https://i.postimg.cc/W1m72hyT/new-samir-image.jpg" 
-              alt="A portrait of John Doe" 
+              alt="A portrait of Samir Ali" 
               className="rounded-2xl shadow-2xl object-cover w-80 h-80 bg-primary p-4 mx-auto"
             />
           </div>
           <div className="lg:w-2/3 text-lg text-muted space-y-6">
             <p>
-              Hello! I'm John, a passionate Data Analyst with a knack for discovering hidden patterns and stories within data. My journey into the world of analytics began with a deep curiosity about how data could be leveraged to make smarter, more impactful decisions.
+              Hello! I'm Samir, a detail-oriented Data Analyst with a passion for uncovering insights from data. With 12 months of hands-on experience, I have developed a strong foundation in data cleaning, analysis, and creating impactful visualizations.
             </p>
             <p>
-              With over 5 years of experience, I've honed my skills in SQL, Python, and data visualization tools like Tableau and Power BI. I thrive on transforming raw data into clear, concise, and visually compelling dashboards that empower stakeholders to understand complex trends at a glance.
+              My journey is fueled by a deep curiosity to understand the stories hidden within datasets. I am proficient with a range of tools and technologies including Python (Pandas, Matplotlib, Seaborn), SQL, and Power BI, which I use to transform complex information into clear, actionable intelligence.
             </p>
             <p>
-              Whether it's building predictive models or conducting deep-dive exploratory analyses, my goal is always the same: to provide actionable insights that drive business success.
+              I possess strong analytical and communication skills, allowing me to effectively convey findings. I am always eager to take on new challenges and contribute to data-driven success.
             </p>
           </div>
         </div>
