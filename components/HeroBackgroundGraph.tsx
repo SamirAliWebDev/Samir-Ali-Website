@@ -1,8 +1,23 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { BarChart, Bar, ResponsiveContainer } from 'recharts';
 
-const ANIMATION_DURATION_MS = 3200;
 const FADE_OUT_DURATION_MS = 800;
+
+// Hook to check for media queries
+const useMediaQuery = (query: string) => {
+  const [matches, setMatches] = React.useState(false);
+  React.useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => setMatches(media.matches);
+    window.addEventListener('resize', listener);
+    return () => window.removeEventListener('resize', listener);
+  }, [matches, query]);
+  return matches;
+};
+
 
 // Generates a cleaner set of data points to create a less cluttered bar chart.
 const generateChartData = (points = 60) => { // Reduced points for clarity
@@ -38,32 +53,38 @@ const Marker: React.FC<{ isFadingOut: boolean }> = ({ isFadingOut }) => (
 
 
 const HeroBackgroundGraph: React.FC = () => {
-  const fullData = useMemo(() => generateChartData(), []);
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const points = isMobile ? 30 : 60;
+  const fullData = useMemo(() => generateChartData(points), [points]);
+  
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
+  const animationDuration = isMobile ? 2000 : 3200;
 
   useEffect(() => {
     // This timer starts the marker's fade-out animation just as the reveal animation finishes.
     const fadeTimer = setTimeout(() => {
       setIsFadingOut(true);
-    }, ANIMATION_DURATION_MS);
+    }, animationDuration);
 
     // This timer removes the marker from the DOM after its fade-out animation is complete.
     const completeTimer = setTimeout(() => {
       setIsAnimationComplete(true);
-    }, ANIMATION_DURATION_MS + FADE_OUT_DURATION_MS);
+    }, animationDuration + FADE_OUT_DURATION_MS);
 
     // Cleanup timers on component unmount
     return () => {
       clearTimeout(fadeTimer);
       clearTimeout(completeTimer);
     };
-  }, []);
+  }, [animationDuration]);
+
+  const animationClass = isMobile ? 'animate-grow-width-mobile' : 'animate-grow-width';
 
   return (
     <div className="w-full h-full relative">
         {/* This container animates the graph reveal from right to left */}
-        <div className="absolute top-0 right-0 h-full animate-grow-width overflow-hidden">
+        <div className={`absolute top-0 right-0 h-full ${animationClass} overflow-hidden`}>
             <div className="absolute top-0 right-0 h-full w-screen">
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart

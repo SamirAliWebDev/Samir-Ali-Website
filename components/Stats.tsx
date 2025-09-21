@@ -1,51 +1,50 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useInView, animate } from 'framer-motion';
 import { STATS } from '../constants';
 import type { Stat } from '../types';
 
+// Hook to check for media queries, defined locally.
+const useMediaQuery = (query: string) => {
+  const [matches, setMatches] = React.useState(false);
+  React.useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => setMatches(media.matches);
+    window.addEventListener('resize', listener);
+    return () => window.removeEventListener('resize', listener);
+  }, [matches, query]);
+  return matches;
+};
+
 const StatCard: React.FC<{ stat: Stat }> = ({ stat }) => {
-    const [count, setCount] = useState(0);
-    const ref = useRef<HTMLDivElement>(null);
-    const hasAnimated = useRef(false);
+    const ref = useRef<HTMLParagraphElement>(null);
+    const isInView = useInView(ref, { once: true, margin: '0px 0px -50px 0px' });
+    const isMobile = useMediaQuery('(max-width: 768px)');
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting && !hasAnimated.current) {
-                    hasAnimated.current = true;
-                    let start = 0;
-                    const end = stat.value;
-                    if (start === end) return;
+        if (isInView && ref.current) {
+            const node = ref.current;
+            
+            const controls = animate(0, stat.value, {
+                duration: isMobile ? 1.5 : 2,
+                onUpdate(value) {
+                    node.textContent = Math.round(value).toString() + stat.suffix;
+                },
+            });
 
-                    const duration = 2000;
-                    const incrementTime = (duration / end);
-                    
-                    const timer = setInterval(() => {
-                        start += 1;
-                        setCount(start);
-                        if (start === end) {
-                            clearInterval(timer);
-                        }
-                    }, incrementTime);
-                }
-            },
-            { threshold: 0.5 }
-        );
-
-        if (ref.current) {
-            observer.observe(ref.current);
+            return () => controls.stop();
         }
-
-        return () => {
-            if (ref.current) {
-                observer.unobserve(ref.current);
-            }
-        };
-    }, [stat.value]);
+    }, [isInView, stat.value, stat.suffix, isMobile]);
 
     return (
-        <div ref={ref} className="bg-secondary p-8 rounded-xl text-center border border-accent/20 shadow-lg hover:shadow-2xl hover:border-accent transition-all duration-300">
-            <p className="text-5xl font-extrabold text-accent">
-                {count}{stat.suffix}
+        <div className="bg-secondary p-8 rounded-xl text-center border border-accent/20 shadow-lg hover:shadow-2xl hover:border-accent transition-all duration-300">
+            <p 
+                ref={ref}
+                className="text-5xl font-extrabold text-accent"
+            >
+                0{stat.suffix}
             </p>
             <p className="text-muted mt-2 text-lg">{stat.label}</p>
         </div>
