@@ -53,7 +53,7 @@ export const PROJECTS: Project[] = [
   },
 ];
 
-export const EXPERIENCE: ExperienceItem[] = [
+export const EXPERIENCE_ITEMS: ExperienceItem[] = [
     {
         date: 'July 2025 - Present',
         title: 'Brazilian Ecommerce Insights',
@@ -65,7 +65,10 @@ export const EXPERIENCE: ExperienceItem[] = [
         title: 'Spotify Artists Playlists',
         company: 'Personal Project',
         description: 'Filtered and analyzed a dataset of Spotify artist playlists to determine monthly song additions, unique artist counts, and identify the top 5 artists with the most popular playlists.'
-    },
+    }
+];
+
+export const EDUCATION_ITEMS: ExperienceItem[] = [
     {
         date: '2024 - 2025',
         title: 'Computer Science Studies',
