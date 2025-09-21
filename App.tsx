@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -9,6 +10,7 @@ import Projects from './components/Projects';
 import Experience from './components/Experience';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import AnimatedSection from './components/AnimatedSection';
 
 const App: React.FC = () => {
   return (
@@ -17,13 +19,13 @@ const App: React.FC = () => {
       <div className="relative z-10">
         <Header />
         <main>
-          <Hero />
-          <Stats />
-          <About />
-          <Skills />
-          <Projects />
-          <Experience />
-          <Contact />
+          <AnimatedSection><Hero /></AnimatedSection>
+          <AnimatedSection><Stats /></AnimatedSection>
+          <AnimatedSection><About /></AnimatedSection>
+          <AnimatedSection><Skills /></AnimatedSection>
+          <AnimatedSection><Projects /></AnimatedSection>
+          <AnimatedSection><Experience /></AnimatedSection>
+          <AnimatedSection><Contact /></AnimatedSection>
         </main>
         <Footer />
       </div>

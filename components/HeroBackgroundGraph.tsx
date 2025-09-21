@@ -1,97 +1,96 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { AreaChart, Area, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, ResponsiveContainer } from 'recharts';
 
-const TOTAL_POINTS = 100;
-const GROW_INTERVAL_MS = 32; // How quickly new points are added (32ms * 100 points = 3.2s total animation time)
-const FADE_OUT_DURATION_MS = 800; // Duration of the marker fade-out animation
+const ANIMATION_DURATION_MS = 3200;
+const FADE_OUT_DURATION_MS = 800;
 
-// Generate a full set of data points for one animation cycle
-const generateFullData = (length = TOTAL_POINTS) => {
-  return Array.from({ length }, () => ({ v: 30 + Math.random() * 40 }));
-};
-
-// Custom dot component to render only the "head" of the graph as a marker
-const GrowingDot = (props: any) => {
-  const { cx, cy, index, dataLength, isAnimating, isFadingOut } = props;
-
-  // Only render the dot for the last data point while the graph is growing or fading out
-  if (!isAnimating || index !== dataLength - 1 || dataLength === 0) {
-    return null;
+// Generates a cleaner set of data points to create a less cluttered bar chart.
+const generateChartData = (points = 60) => { // Reduced points for clarity
+  const data = [];
+  for (let i = 0; i < points; i++) {
+    // A combination of sine waves and random noise for a more organic, financial-chart look
+    const value = 
+      20 + 
+      (Math.sin(i / 5) * 15) + // Adjusted frequency for fewer points
+      (Math.cos(i / 10) * 10) + 
+      (Math.random() * 10);
+    data.push({ v: Math.max(10, value) }); // Ensure a minimum height for bars
   }
-  
-  const pulseClass = 'animate-pulse-marker';
-  const fadeOutClass = 'animate-marker-fade-out';
-
-  return (
-    <g className={isFadingOut ? fadeOutClass : ''}>
-      <circle cx={cx} cy={cy} r="8" fill="#3671E9" stroke="#F8F9FA" strokeWidth="2" opacity="0.5" />
-      <circle cx={cx} cy={cy} r="4" fill="#F8F9FA" className={isFadingOut ? '' : pulseClass} />
-    </g>
-  );
+  return data;
 };
+
+const Marker: React.FC<{ isFadingOut: boolean }> = ({ isFadingOut }) => (
+  // The marker is positioned on the left (leading) edge of its parent container.
+  // It moves along with the CSS animation.
+  <div
+    className={`absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-1/2 transition-opacity duration-300 ${isFadingOut ? 'animate-marker-fade-out' : ''}`}
+  >
+    <div className="animate-pulse-marker">
+      <div className="relative w-4 h-4">
+        {/* Outer circle with a slight glow effect */}
+        <div className="absolute w-full h-full rounded-full bg-accent opacity-50 ring-2 ring-white/50"></div>
+        {/* Inner solid dot */}
+        <div className="absolute top-1/2 left-1/2 w-2 h-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-light"></div>
+      </div>
+    </div>
+  </div>
+);
+
 
 const HeroBackgroundGraph: React.FC = () => {
-  const fullData = useMemo(() => generateFullData(), []);
-  const [displayData, setDisplayData] = useState<{v: number}[]>([]);
-  const [isAnimating, setIsAnimating] = useState(true);
+  const fullData = useMemo(() => generateChartData(), []);
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
 
   useEffect(() => {
-    let timeoutId: number;
-    const intervalId = window.setInterval(() => {
-      setDisplayData(prev => {
-        const nextLength = prev.length + 1;
-        
-        if (nextLength <= fullData.length) {
-          const isFinished = nextLength === fullData.length;
-          if (isFinished) {
-            clearInterval(intervalId);
-            setIsFadingOut(true);
-            // After the fade animation completes, set isAnimating to false to remove the dot component.
-            timeoutId = window.setTimeout(() => {
-              setIsAnimating(false);
-            }, FADE_OUT_DURATION_MS);
-          }
-          return fullData.slice(0, nextLength);
-        }
+    // This timer starts the marker's fade-out animation just as the reveal animation finishes.
+    const fadeTimer = setTimeout(() => {
+      setIsFadingOut(true);
+    }, ANIMATION_DURATION_MS);
 
-        // Failsafe to stop the interval if something goes wrong
-        clearInterval(intervalId);
-        return prev;
-      });
-    }, GROW_INTERVAL_MS);
+    // This timer removes the marker from the DOM after its fade-out animation is complete.
+    const completeTimer = setTimeout(() => {
+      setIsAnimationComplete(true);
+    }, ANIMATION_DURATION_MS + FADE_OUT_DURATION_MS);
 
-    // Cleanup interval and timeout on component unmount
+    // Cleanup timers on component unmount
     return () => {
-      clearInterval(intervalId);
-      clearTimeout(timeoutId);
+      clearTimeout(fadeTimer);
+      clearTimeout(completeTimer);
     };
-  }, [fullData]);
+  }, []);
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <AreaChart 
-        data={displayData} 
-        margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
-      >
-        <defs>
-          <linearGradient id="colorGraph" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#3671E9" stopOpacity={0.4}/>
-            <stop offset="95%" stopColor="#3671E9" stopOpacity={0}/>
-          </linearGradient>
-        </defs>
-        <Area
-          type="monotone"
-          dataKey="v"
-          stroke="#3671E9"
-          strokeWidth={2}
-          fillOpacity={1}
-          fill="url(#colorGraph)"
-          isAnimationActive={false}
-          dot={<GrowingDot dataLength={displayData.length} isAnimating={isAnimating} isFadingOut={isFadingOut} />}
-        />
-      </AreaChart>
-    </ResponsiveContainer>
+    <div className="w-full h-full relative">
+        {/* This container animates the graph reveal from right to left */}
+        <div className="absolute top-0 right-0 h-full animate-grow-width overflow-hidden">
+            <div className="absolute top-0 right-0 h-full w-screen">
+                <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                        data={fullData}
+                        margin={{ top: 10, right: 0, left: 0, bottom: 10 }}
+                        barCategoryGap="20%" // Increased gap between bars for a cleaner look
+                    >
+                        <defs>
+                            <linearGradient id="colorGraph" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="#3671E9" stopOpacity={0.6}/>
+                                <stop offset="95%" stopColor="#3671E9" stopOpacity={0.1}/>
+                            </linearGradient>
+                        </defs>
+                        <Bar
+                            dataKey="v"
+                            fill="url(#colorGraph)"
+                            isAnimationActive={false}
+                            radius={[2, 2, 0, 0]}
+                        />
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
+            
+            {/* Marker is now inside the animated container to move with it */}
+            {!isAnimationComplete && <Marker isFadingOut={isFadingOut} />}
+        </div>
+    </div>
   );
 };
 

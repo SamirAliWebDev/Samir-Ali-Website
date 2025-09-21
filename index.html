@@ -28,6 +28,7 @@
               'pulse-slow': 'pulse-slow 10s ease-in-out infinite',
               'pulse-marker': 'pulse-marker 2s ease-in-out infinite',
               'marker-fade-out': 'marker-fade-out 0.8s ease-out forwards',
+              'grow-width': 'grow-width 3.2s cubic-bezier(0.33, 1, 0.68, 1) forwards',
             },
             keyframes: {
               'gradient-bg': {
@@ -66,6 +67,10 @@
                 'from': { opacity: 1 },
                 'to': { opacity: 0 },
               },
+              'grow-width': {
+                'from': { width: '0%' },
+                'to': { width: '100%' },
+              },
             },
           },
         },
@@ -78,7 +83,8 @@
     "react": "https://aistudiocdn.com/react@^19.1.1",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
     "react/": "https://aistudiocdn.com/react@^19.1.1/",
-    "recharts": "https://aistudiocdn.com/recharts@^3.2.1"
+    "recharts": "https://aistudiocdn.com/recharts@^3.2.1",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^11.3.11"
   }
 }
 </script>
