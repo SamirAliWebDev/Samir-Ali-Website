@@ -24,14 +24,33 @@ const Hero: React.FC = () => {
     <section id="hero" className="relative min-h-screen flex items-center bg-cover bg-center overflow-hidden" style={{backgroundImage: "linear-gradient(rgba(13, 13, 43, 0.8), rgba(13, 13, 43, 1))"}}>
       
       {/* Animated Graph Background */}
-      <div className="absolute inset-0 z-0 opacity-20 blur-sm">
+      <div className="absolute inset-0 z-0 opacity-40">
         <HeroBackgroundGraph />
       </div>
 
       <div className="absolute inset-0 z-0 opacity-50">
-        <div className="absolute top-1/4 -left-24 w-72 h-72 bg-accent rounded-full filter blur-3xl animate-float-1" style={{ willChange: 'transform' }}></div>
-        <div className="absolute bottom-0 -right-24 w-96 h-96 bg-secondary rounded-full filter blur-3xl animate-float-2" style={{ willChange: 'transform' }}></div>
-        <div className="absolute bottom-1/4 -right-12 w-64 h-64 bg-accent rounded-full filter blur-3xl animate-pulse-slow" style={{ animationDelay: '2s', willChange: 'opacity, transform' }}></div>
+        <div 
+          className="absolute top-1/4 -left-24 w-72 h-72 rounded-full animate-float-1" 
+          style={{ 
+            background: 'radial-gradient(circle, rgba(54, 113, 233, 0.25) 0%, transparent 70%)',
+            willChange: 'transform' 
+          }}>
+        </div>
+        <div 
+          className="absolute bottom-0 -right-24 w-96 h-96 rounded-full animate-float-2" 
+          style={{ 
+            background: 'radial-gradient(circle, rgba(19, 19, 52, 0.8) 0%, transparent 70%)',
+            willChange: 'transform' 
+          }}>
+        </div>
+        <div 
+          className="absolute bottom-1/4 -right-12 w-64 h-64 rounded-full animate-pulse-slow" 
+          style={{ 
+            background: 'radial-gradient(circle, rgba(54, 113, 233, 0.25) 0%, transparent 70%)',
+            animationDelay: '2s', 
+            willChange: 'opacity, transform' 
+          }}>
+        </div>
       </div>
       
       <div className="container mx-auto px-6 text-center relative z-10">

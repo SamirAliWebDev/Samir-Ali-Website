@@ -40,7 +40,6 @@ const AnimatedSection: React.FC<Props> = ({ children }) => {
         }
       : { // Desktop animations with a more subtle effect
           opacity: 1,
-          filter: 'blur(0px)',
           scale: 1,
         },
     hidden: isMobile
@@ -49,7 +48,6 @@ const AnimatedSection: React.FC<Props> = ({ children }) => {
         }
       : {
           opacity: 0.5,     // Was 0.2
-          filter: 'blur(2px)', // Was blur(4px)
           scale: 0.98,       // Was 0.95
         },
   };
