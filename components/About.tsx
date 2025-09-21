@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const About: React.FC = () => {
@@ -9,17 +8,17 @@ const About: React.FC = () => {
           <h2 className="text-4xl font-extrabold text-white">About Me</h2>
           <div className="w-24 h-1 bg-accent mx-auto mt-4 rounded"></div>
         </div>
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          <div className="lg:w-1/2">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          <div className="lg:w-1/3">
             <img 
-              src="https://picsum.photos/seed/about/600/600" 
-              alt="Jane Doe working" 
-              className="rounded-2xl shadow-2xl object-cover w-full h-auto"
+              src="https://i.postimg.cc/W1m72hyT/new-samir-image.jpg" 
+              alt="A portrait of John Doe" 
+              className="rounded-2xl shadow-2xl object-cover w-80 h-80 bg-primary p-4 mx-auto"
             />
           </div>
-          <div className="lg:w-1/2 text-lg text-muted space-y-6">
+          <div className="lg:w-2/3 text-lg text-muted space-y-6">
             <p>
-              Hello! I'm Jane, a passionate Data Analyst with a knack for discovering hidden patterns and stories within data. My journey into the world of analytics began with a deep curiosity about how data could be leveraged to make smarter, more impactful decisions.
+              Hello! I'm John, a passionate Data Analyst with a knack for discovering hidden patterns and stories within data. My journey into the world of analytics began with a deep curiosity about how data could be leveraged to make smarter, more impactful decisions.
             </p>
             <p>
               With over 5 years of experience, I've honed my skills in SQL, Python, and data visualization tools like Tableau and Power BI. I thrive on transforming raw data into clear, concise, and visually compelling dashboards that empower stakeholders to understand complex trends at a glance.

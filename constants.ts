@@ -1,4 +1,3 @@
-
 import type { SkillCategory, Project, ExperienceItem, Stat } from './types';
 import { PythonIcon, RIcon, SQLIcon, TableauIcon, PowerBIIcon, ScikitLearnIcon, PandasIcon, AWSIcon, ExcelIcon, GitIcon, JupyterIcon, MatplotlibIcon } from './components/icons/SkillIcons';
 import { GithubIcon, LinkedinIcon, MailIcon } from './components/icons/SocialIcons';
@@ -104,5 +103,5 @@ export const STATS: Stat[] = [
 export const SOCIAL_LINKS = [
     { name: 'GitHub', icon: GithubIcon, url: '#' },
     { name: 'LinkedIn', icon: LinkedinIcon, url: '#' },
-    { name: 'Email', icon: MailIcon, url: 'mailto:jane.doe@example.com' }
+    { name: 'Email', icon: MailIcon, url: 'mailto:john.doe@example.com' }
 ];

@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const Hero: React.FC = () => {
@@ -6,10 +5,10 @@ const Hero: React.FC = () => {
     <section id="hero" className="min-h-screen flex items-center bg-cover bg-center" style={{backgroundImage: "linear-gradient(rgba(13, 13, 43, 0.8), rgba(13, 13, 43, 1)), url('https://picsum.photos/seed/hero/1920/1080')"}}>
       <div className="container mx-auto px-6 text-center animate-fade-in-up">
         <div className="flex flex-col md:flex-row items-center justify-center gap-10">
-          <img src="https://picsum.photos/seed/avatar/200/200" alt="Jane Doe" className="w-48 h-48 rounded-full border-4 border-accent shadow-xl object-cover" />
+          <img src="https://i.postimg.cc/QdRrrYvR/Remove-background-project.png" alt="John Doe" className="w-48 h-48 rounded-full border-4 border-accent shadow-xl object-cover bg-secondary" />
           <div className="md:text-left">
             <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
-              Jane Doe
+              John Doe
             </h1>
             <p className="text-2xl md:text-3xl text-accent font-semibold mb-6">
               Data Analyst & Storyteller
