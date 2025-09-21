@@ -24,7 +24,7 @@ const Hero: React.FC = () => {
     <section id="hero" className="relative min-h-screen flex items-center bg-cover bg-center overflow-hidden" style={{backgroundImage: "linear-gradient(rgba(13, 13, 43, 0.8), rgba(13, 13, 43, 1))"}}>
       
       {/* Animated Graph Background */}
-      <div className="absolute inset-0 z-0 opacity-40">
+      <div className="absolute inset-0 z-0 opacity-50">
         <HeroBackgroundGraph />
       </div>
 
@@ -58,30 +58,31 @@ const Hero: React.FC = () => {
           <img 
             src="https://i.postimg.cc/QdRrrYvR/Remove-background-project.png" 
             alt="Samir Ali" 
-            className={`w-48 h-48 rounded-full border-4 border-accent shadow-xl object-cover bg-secondary ${materializeClass}`} 
+            className={`w-48 h-48 rounded-full border-4 border-accent shadow-xl object-cover bg-secondary ${materializeClass}`}
+            style={{ willChange: 'transform, opacity' }}
           />
           <div className="md:text-left">
             <h1 
               className={`text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4 ${materializeClass}`}
-              style={{ animationDelay: '300ms' }}
+              style={{ animationDelay: '300ms', willChange: 'transform, opacity' }}
             >
               Samir Ali
             </h1>
             <p 
               className={`text-2xl md:text-3xl text-accent font-semibold mb-6 ${materializeClass}`}
-              style={{ animationDelay: '600ms' }}
+              style={{ animationDelay: '600ms', willChange: 'transform, opacity' }}
             >
               Data Analyst
             </p>
             <p 
               className={`max-w-2xl text-lg text-muted mb-8 ${materializeClass}`}
-              style={{ animationDelay: '900ms' }}
+              style={{ animationDelay: '900ms', willChange: 'transform, opacity' }}
             >
               Detail-oriented Data Analyst with 12 months of experience in data cleaning, analysis, and visualization using Python, SQL, and Power BI.
             </p>
             <div 
               className={`flex justify-center md:justify-start space-x-4 ${materializeClass}`}
-              style={{ animationDelay: '1200ms' }}
+              style={{ animationDelay: '1200ms', willChange: 'transform, opacity' }}
             >
               <a href="#projects" className="bg-accent text-white font-bold py-3 px-8 rounded-full hover:bg-blue-500 transition-all duration-300 shadow-lg">
                 View My Work

@@ -31,36 +31,33 @@ const AnimatedSection: React.FC<Props> = ({ children }) => {
     once: false 
   });
 
-  // FIX: Refactored to use variants to resolve a TypeScript error with the `initial` prop.
-  // This approach is more idiomatic for framer-motion and better handled by TypeScript.
+  // Restored the `scale` animation for a "focus" effect on desktop.
   const variants = {
     visible: isMobile
-      ? { // Mobile-friendly animations (just opacity)
+      ? { // Mobile-friendly animation (just opacity)
           opacity: 1,
         }
-      : { // Desktop animations with a more subtle effect
+      : { // Desktop animation with a scale effect
           opacity: 1,
           scale: 1,
         },
     hidden: isMobile
       ? {
-          opacity: 0.5, // Make unfocused sections more visible on mobile
+          opacity: 0.6, // Make unfocused sections a bit more visible
         }
       : {
-          opacity: 0.5,     // Was 0.2
-          scale: 0.98,       // Was 0.95
+          opacity: 0.6,
+          scale: 0.98, // A subtle scale-down for unfocused sections
         },
   };
 
   return (
     <motion.div
       ref={ref}
-      // The section is always rendered, which fixes the blank page issue.
-      // Its visual properties are animated based on whether it is in the viewport's center.
       variants={variants}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
-      transition={{ duration: isMobile ? 0.4 : 0.6, ease: 'easeInOut' }}
+      transition={{ duration: isMobile ? 0.5 : 0.7, ease: 'easeOut' }}
     >
       {children}
     </motion.div>

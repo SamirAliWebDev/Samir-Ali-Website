@@ -3,6 +3,21 @@ import { SKILL_CATEGORIES } from '../constants';
 import type { SkillCategory } from '../types';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+// Hook to check for media queries, defined locally
+const useMediaQuery = (query: string) => {
+  const [matches, setMatches] = React.useState(false);
+  React.useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => setMatches(media.matches);
+    window.addEventListener('resize', listener);
+    return () => window.removeEventListener('resize', listener);
+  }, [matches, query]);
+  return matches;
+};
+
 const chartData = SKILL_CATEGORIES.flatMap(cat => cat.skills).map(skill => ({
     subject: skill.name,
     Proficiency: skill.level,
@@ -25,6 +40,12 @@ const SkillCard: React.FC<{ category: SkillCategory }> = ({ category }) => (
 
 
 const Skills: React.FC = () => {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const yAxisWidth = isMobile ? 100 : 150;
+  const yAxisTickSize = isMobile ? 11 : 14;
+  const barThickness = isMobile ? 24 : 22;
+  const chartMinHeight = isMobile ? '360px' : '480px';
+
   return (
     <section id="skills" className="py-24 bg-primary">
       <div className="container mx-auto px-6">
@@ -38,13 +59,16 @@ const Skills: React.FC = () => {
               <SkillCard key={category.title} category={category} />
             ))}
           </div>
-          <div className="bg-secondary p-6 rounded-lg border border-accent/20 flex flex-col items-center justify-center min-h-[400px]">
+          <div 
+            className="bg-secondary p-6 rounded-lg border border-accent/20 flex flex-col items-center justify-center"
+            style={{ minHeight: chartMinHeight }}
+          >
             <h3 className="text-2xl font-bold text-white mb-4">Skills Proficiency</h3>
-            <ResponsiveContainer width="100%" height={400}>
+            <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                     layout="vertical"
                     data={chartData}
-                    margin={{ top: 5, right: 20, left: 30, bottom: 5 }}
+                    margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
                 >
                     <defs>
                         <linearGradient id="colorBar" x1="0" y1="0" x2="1" y2="0">
@@ -57,10 +81,10 @@ const Skills: React.FC = () => {
                     <YAxis 
                         dataKey="subject" 
                         type="category" 
-                        tick={{ fill: '#F8F9FA', fontSize: 14 }} 
+                        tick={{ fill: '#F8F9FA', fontSize: yAxisTickSize }} 
                         axisLine={false} 
                         tickLine={false}
-                        width={130}
+                        width={yAxisWidth}
                     />
                     <Tooltip 
                         cursor={{fill: 'rgba(255, 255, 255, 0.1)'}}
@@ -73,7 +97,15 @@ const Skills: React.FC = () => {
                         labelStyle={{ color: '#F8F9FA', fontWeight: 'bold' }}
                         itemStyle={{ color: '#80A5F5' }}
                     />
-                    <Bar dataKey="Proficiency" fill="url(#colorBar)" radius={[0, 4, 4, 0]} barSize={15} />
+                    <Bar 
+                        dataKey="Proficiency" 
+                        fill="url(#colorBar)" 
+                        radius={[0, 4, 4, 0]} 
+                        barSize={barThickness} 
+                        isAnimationActive={true}
+                        animationDuration={1500}
+                        animationEasing="ease-out"
+                    />
                 </BarChart>
             </ResponsiveContainer>
           </div>

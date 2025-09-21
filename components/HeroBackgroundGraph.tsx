@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, ResponsiveContainer } from 'recharts';
-
-const FADE_OUT_DURATION_MS = 800;
 
 // Hook to check for media queries
 const useMediaQuery = (query: string) => {
@@ -18,102 +16,79 @@ const useMediaQuery = (query: string) => {
   return matches;
 };
 
-
-// Generates a cleaner set of data points to create a less cluttered bar chart.
-const generateChartData = (points = 60) => { // Reduced points for clarity
+// Generates the initial set of random data points for the bar chart.
+const generateInitialChartData = (points: number) => {
   const data = [];
   for (let i = 0; i < points; i++) {
-    // A combination of sine waves and random noise for a more organic, financial-chart look
-    const value = 
-      20 + 
-      (Math.sin(i / 5) * 15) + // Adjusted frequency for fewer points
-      (Math.cos(i / 10) * 10) + 
-      (Math.random() * 10);
-    data.push({ v: Math.max(10, value) }); // Ensure a minimum height for bars
+    // Start with a random value within a reasonable range
+    const value = 10 + Math.random() * 30;
+    data.push({ v: value });
   }
   return data;
 };
 
-const Marker: React.FC<{ isFadingOut: boolean }> = ({ isFadingOut }) => (
-  // The marker is positioned on the left (leading) edge of its parent container.
-  // It moves along with the CSS animation.
-  <div
-    className={`absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-1/2 transition-opacity duration-300 ${isFadingOut ? 'animate-marker-fade-out' : ''}`}
-  >
-    <div className="animate-pulse-marker">
-      <div className="relative w-4 h-4">
-        {/* Outer circle with a slight glow effect */}
-        <div className="absolute w-full h-full rounded-full bg-accent opacity-50 ring-2 ring-white/50"></div>
-        {/* Inner solid dot */}
-        <div className="absolute top-1/2 left-1/2 w-2 h-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-light"></div>
-      </div>
-    </div>
-  </div>
-);
-
-
 const HeroBackgroundGraph: React.FC = () => {
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const points = isMobile ? 45 : 60;
-  const fullData = useMemo(() => generateChartData(points), [points]);
+  const points = isMobile ? 30 : 75;
   
-  const [isFadingOut, setIsFadingOut] = useState(false);
-  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
-  const animationDuration = isMobile ? 2000 : 3200;
+  const [data, setData] = useState(() => generateInitialChartData(points));
 
   useEffect(() => {
-    // This timer starts the marker's fade-out animation just as the reveal animation finishes.
-    const fadeTimer = setTimeout(() => {
-      setIsFadingOut(true);
-    }, animationDuration);
+    // Reset data whenever the number of points changes (e.g., on resize)
+    setData(generateInitialChartData(points));
 
-    // This timer removes the marker from the DOM after its fade-out animation is complete.
-    const completeTimer = setTimeout(() => {
-      setIsAnimationComplete(true);
-    }, animationDuration + FADE_OUT_DURATION_MS);
+    let animationFrameId: number;
+    let lastUpdateTime = 0;
+    // A slightly slower interval creates a more deliberate, less frantic animation
+    const updateInterval = 200; 
 
-    // Cleanup timers on component unmount
-    return () => {
-      clearTimeout(fadeTimer);
-      clearTimeout(completeTimer);
+    // Animation loop using requestAnimationFrame for efficiency
+    const animate = (timestamp: number) => {
+      if (timestamp - lastUpdateTime > updateInterval) {
+        lastUpdateTime = timestamp;
+        setData(currentData => 
+          currentData.map(point => {
+            // Each bar moves up or down by a small random amount
+            let newValue = point.v + (Math.random() * 8 - 4);
+            // Clamp the value to ensure bars don't get too tall or too short
+            newValue = Math.max(10, Math.min(45, newValue));
+            return { v: newValue };
+          })
+        );
+      }
+      animationFrameId = requestAnimationFrame(animate);
     };
-  }, [animationDuration]);
 
-  const animationClass = isMobile ? 'animate-reveal-from-right-mobile' : 'animate-reveal-from-right';
+    animationFrameId = requestAnimationFrame(animate);
+
+    // Clean up the animation frame when the component unmounts or effect re-runs
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [points]);
 
   return (
-    <div className="w-full h-full relative">
-        {/* This container animates the graph reveal from right to left */}
-        <div 
-          className={`absolute top-0 right-0 h-full ${animationClass} transform-origin-right overflow-hidden`}
-          style={{ willChange: 'transform' }}
+    <div className="w-full h-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={data}
+          margin={{ top: 10, right: 0, left: 0, bottom: 10 }}
+          barCategoryGap="10%"
         >
-            <div className="absolute top-0 right-0 h-full w-screen">
-                <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                        data={fullData}
-                        margin={{ top: 10, right: 0, left: 0, bottom: 10 }}
-                        barCategoryGap="15%" // Reduced gap for a fuller look
-                    >
-                        <defs>
-                            <linearGradient id="colorGraph" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#3671E9" stopOpacity={0.6}/>
-                                <stop offset="95%" stopColor="#3671E9" stopOpacity={0.1}/>
-                            </linearGradient>
-                        </defs>
-                        <Bar
-                            dataKey="v"
-                            fill="url(#colorGraph)"
-                            isAnimationActive={false}
-                            radius={[2, 2, 0, 0]}
-                        />
-                    </BarChart>
-                </ResponsiveContainer>
-            </div>
-            
-            {/* Marker is now inside the animated container to move with it */}
-            {!isAnimationComplete && <Marker isFadingOut={isFadingOut} />}
-        </div>
+          <defs>
+            <linearGradient id="colorGraph" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#3671E9" stopOpacity={0.8}/>
+              <stop offset="95%" stopColor="#3671E9" stopOpacity={0.2}/>
+            </linearGradient>
+          </defs>
+          <Bar
+            dataKey="v"
+            fill="url(#colorGraph)"
+            isAnimationActive={true}
+            animationDuration={200}
+            animationEasing="ease-in-out"
+            radius={[2, 2, 0, 0]}
+          />
+        </BarChart>
+      </ResponsiveContainer>
     </div>
   );
 };
