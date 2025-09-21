@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,22 +22,49 @@
             },
             animation: {
               'gradient-bg': 'gradient-bg 15s ease infinite',
-              'fade-in-up': 'fade-in-up 0.8s ease-out',
+              'materialize': 'materialize 2s ease-out both',
+              'float-1': 'float-1 20s ease-in-out infinite',
+              'float-2': 'float-2 25s ease-in-out infinite',
+              'pulse-slow': 'pulse-slow 10s ease-in-out infinite',
+              'pulse-marker': 'pulse-marker 2s ease-in-out infinite',
+              'marker-fade-out': 'marker-fade-out 0.8s ease-out forwards',
             },
             keyframes: {
               'gradient-bg': {
                 '0%, 100%': { 'background-position': '0% 50%' },
                 '50%': { 'background-position': '100% 50%' },
               },
-              'fade-in-up': {
+              'materialize': {
                 '0%': {
                   opacity: '0',
-                  transform: 'translateY(20px)',
+                  transform: 'translateY(30px)',
+                  filter: 'blur(8px)',
                 },
                 '100%': {
                   opacity: '1',
                   transform: 'translateY(0)',
+                  filter: 'blur(0px)',
                 },
+              },
+              'float-1': {
+                  '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                  '50%': { transform: 'translateY(-30px) rotate(15deg)' },
+              },
+              'float-2': {
+                  '0%, 100%': { transform: 'translate(0px, 0px) rotate(0deg)' },
+                  '50%': { transform: 'translate(25px, 20px) rotate(-20deg)' },
+              },
+              'pulse-slow': {
+                  '0%, 100%': { opacity: '0.2', transform: 'scale(1)' },
+                  '50%': { opacity: '0.4', transform: 'scale(1.05)' },
+              },
+              'pulse-marker': {
+                '0%, 100%': { transform: 'scale(1)', opacity: 1 },
+                '50%': { transform: 'scale(1.2)', opacity: 0.7 },
+              },
+              'marker-fade-out': {
+                'from': { opacity: 1 },
+                'to': { opacity: 0 },
               },
             },
           },
