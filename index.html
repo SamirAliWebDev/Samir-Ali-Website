@@ -29,8 +29,8 @@
               'pulse-slow': 'pulse-slow 10s ease-in-out infinite',
               'pulse-marker': 'pulse-marker 2s ease-in-out infinite',
               'marker-fade-out': 'marker-fade-out 0.8s ease-out forwards',
-              'grow-width': 'grow-width 3.2s cubic-bezier(0.33, 1, 0.68, 1) forwards',
-              'grow-width-mobile': 'grow-width 2.0s cubic-bezier(0.33, 1, 0.68, 1) forwards',
+              'reveal-from-right': 'reveal-from-right 3.2s cubic-bezier(0.33, 1, 0.68, 1) forwards',
+              'reveal-from-right-mobile': 'reveal-from-right 2.0s cubic-bezier(0.33, 1, 0.68, 1) forwards',
             },
             keyframes: {
               'gradient-bg': {
@@ -69,9 +69,9 @@
                 'from': { opacity: 1 },
                 'to': { opacity: 0 },
               },
-              'grow-width': {
-                'from': { width: '0%' },
-                'to': { width: '100%' },
+              'reveal-from-right': {
+                'from': { transform: 'scaleX(0)' },
+                'to': { transform: 'scaleX(1)' },
               },
             },
           },

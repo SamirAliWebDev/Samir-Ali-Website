@@ -19,7 +19,7 @@ const App: React.FC = () => {
       <div className="relative z-10">
         <Header />
         <main>
-          <AnimatedSection><Hero /></AnimatedSection>
+          <Hero />
           <AnimatedSection><Stats /></AnimatedSection>
           <AnimatedSection><About /></AnimatedSection>
           <AnimatedSection><Skills /></AnimatedSection>

@@ -54,7 +54,7 @@ const Marker: React.FC<{ isFadingOut: boolean }> = ({ isFadingOut }) => (
 
 const HeroBackgroundGraph: React.FC = () => {
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const points = isMobile ? 30 : 60;
+  const points = isMobile ? 45 : 60;
   const fullData = useMemo(() => generateChartData(points), [points]);
   
   const [isFadingOut, setIsFadingOut] = useState(false);
@@ -79,18 +79,21 @@ const HeroBackgroundGraph: React.FC = () => {
     };
   }, [animationDuration]);
 
-  const animationClass = isMobile ? 'animate-grow-width-mobile' : 'animate-grow-width';
+  const animationClass = isMobile ? 'animate-reveal-from-right-mobile' : 'animate-reveal-from-right';
 
   return (
     <div className="w-full h-full relative">
         {/* This container animates the graph reveal from right to left */}
-        <div className={`absolute top-0 right-0 h-full ${animationClass} overflow-hidden`}>
+        <div 
+          className={`absolute top-0 right-0 h-full ${animationClass} transform-origin-right overflow-hidden`}
+          style={{ willChange: 'transform' }}
+        >
             <div className="absolute top-0 right-0 h-full w-screen">
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                         data={fullData}
                         margin={{ top: 10, right: 0, left: 0, bottom: 10 }}
-                        barCategoryGap="20%" // Increased gap between bars for a cleaner look
+                        barCategoryGap="15%" // Reduced gap for a fuller look
                     >
                         <defs>
                             <linearGradient id="colorGraph" x1="0" y1="0" x2="0" y2="1">

@@ -24,10 +24,10 @@ const AnimatedSection: React.FC<Props> = ({ children }) => {
   const ref = useRef(null);
   const isMobile = useMediaQuery('(max-width: 768px)');
   
-  // An element is "in view" when it's in the central 30% of the viewport.
-  // This focuses the user on one section at a time.
+  // An element is "in view" when it's in the central 60% of the viewport.
+  // This provides a larger trigger area, making the focus effect smoother.
   const isInView = useInView(ref, { 
-    margin: "-35% 0px -35% 0px",
+    margin: "-20% 0px -20% 0px",
     once: false 
   });
 
@@ -35,22 +35,22 @@ const AnimatedSection: React.FC<Props> = ({ children }) => {
   // This approach is more idiomatic for framer-motion and better handled by TypeScript.
   const variants = {
     visible: isMobile
-      ? { // Mobile-friendly animations (less resource-intensive)
+      ? { // Mobile-friendly animations (just opacity)
           opacity: 1,
         }
-      : { // Desktop animations with blur and scale
+      : { // Desktop animations with a more subtle effect
           opacity: 1,
           filter: 'blur(0px)',
           scale: 1,
         },
     hidden: isMobile
       ? {
-          opacity: 0.3,
+          opacity: 0.5, // Make unfocused sections more visible on mobile
         }
       : {
-          opacity: 0.2,
-          filter: 'blur(4px)',
-          scale: 0.95,
+          opacity: 0.5,     // Was 0.2
+          filter: 'blur(2px)', // Was blur(4px)
+          scale: 0.98,       // Was 0.95
         },
   };
 
