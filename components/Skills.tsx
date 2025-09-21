@@ -1,12 +1,11 @@
 import React from 'react';
 import { SKILL_CATEGORIES } from '../constants';
 import type { SkillCategory } from '../types';
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const chartData = SKILL_CATEGORIES.flatMap(cat => cat.skills).map(skill => ({
     subject: skill.name,
-    A: skill.level,
-    fullMark: 100
+    Proficiency: skill.level,
 }));
 
 
@@ -42,25 +41,40 @@ const Skills: React.FC = () => {
           <div className="bg-secondary p-6 rounded-lg border border-accent/20 flex flex-col items-center justify-center min-h-[400px]">
             <h3 className="text-2xl font-bold text-white mb-4">Skills Proficiency</h3>
             <ResponsiveContainer width="100%" height={400}>
-              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={chartData}>
-                <defs>
-                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3671E9" stopOpacity={0.8}/>
-                        <stop offset="95%" stopColor="#3671E9" stopOpacity={0.2}/>
-                    </linearGradient>
-                </defs>
-                <PolarGrid stroke="#828282" />
-                <PolarAngleAxis dataKey="subject" tick={{ fill: '#F8F9FA' }} />
-                <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fill: 'none' }} axisLine={{ stroke: 'none' }} />
-                <Radar name="Proficiency" dataKey="A" stroke="#3671E9" fill="url(#colorUv)" fillOpacity={0.6} />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'rgba(13, 13, 43, 0.9)', 
-                    borderColor: '#3671E9' 
-                  }}
-                  labelStyle={{ color: '#F8F9FA' }}
-                />
-              </RadarChart>
+                <BarChart
+                    layout="vertical"
+                    data={chartData}
+                    margin={{ top: 5, right: 20, left: 30, bottom: 5 }}
+                >
+                    <defs>
+                        <linearGradient id="colorBar" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="5%" stopColor="#3671E9" stopOpacity={0.9}/>
+                        <stop offset="95%" stopColor="#80A5F5" stopOpacity={0.9}/>
+                        </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#828282" horizontal={false} strokeOpacity={0.2} />
+                    <XAxis type="number" domain={[0, 100]} hide={true} />
+                    <YAxis 
+                        dataKey="subject" 
+                        type="category" 
+                        tick={{ fill: '#F8F9FA', fontSize: 14 }} 
+                        axisLine={false} 
+                        tickLine={false}
+                        width={130}
+                    />
+                    <Tooltip 
+                        cursor={{fill: 'rgba(255, 255, 255, 0.1)'}}
+                        contentStyle={{ 
+                        backgroundColor: 'rgba(13, 13, 43, 0.9)', 
+                        borderColor: '#3671E9',
+                        borderRadius: '0.5rem',
+                        boxShadow: '0 0 10px rgba(54, 113, 233, 0.5)'
+                        }}
+                        labelStyle={{ color: '#F8F9FA', fontWeight: 'bold' }}
+                        itemStyle={{ color: '#80A5F5' }}
+                    />
+                    <Bar dataKey="Proficiency" fill="url(#colorBar)" radius={[0, 4, 4, 0]} barSize={15} />
+                </BarChart>
             </ResponsiveContainer>
           </div>
         </div>

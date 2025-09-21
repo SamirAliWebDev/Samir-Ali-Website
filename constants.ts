@@ -1,5 +1,5 @@
 import type { SkillCategory, Project, ExperienceItem, Stat } from './types';
-import { PythonIcon, RIcon, SQLIcon, TableauIcon, PowerBIIcon, ScikitLearnIcon, PandasIcon, AWSIcon, ExcelIcon, GitIcon, JupyterIcon, MatplotlibIcon } from './components/icons/SkillIcons';
+import { PythonIcon, SQLIcon, PowerBIIcon, PandasIcon, ExcelIcon, GitIcon, JupyterIcon, MatplotlibIcon } from './components/icons/SkillIcons';
 import { GithubIcon, LinkedinIcon, MailIcon } from './components/icons/SocialIcons';
 
 export const NAV_LINKS = [
@@ -15,7 +15,6 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     title: 'Programming & Databases',
     skills: [
       { name: 'Python', icon: PythonIcon, level: 95 },
-      { name: 'R', icon: RIcon, level: 80 },
       { name: 'SQL', icon: SQLIcon, level: 90 },
       { name: 'Pandas & NumPy', icon: PandasIcon, level: 95 },
     ],
@@ -23,7 +22,6 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: 'Data Visualization & BI',
     skills: [
-      { name: 'Tableau', icon: TableauIcon, level: 90 },
       { name: 'Power BI', icon: PowerBIIcon, level: 85 },
       { name: 'Matplotlib/Seaborn', icon: MatplotlibIcon, level: 88 },
       { name: 'Excel', icon: ExcelIcon, level: 98 },
@@ -32,8 +30,6 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: 'Machine Learning & Cloud',
     skills: [
-      { name: 'Scikit-learn', icon: ScikitLearnIcon, level: 85 },
-      { name: 'AWS S3 & Redshift', icon: AWSIcon, level: 75 },
       { name: 'Git & GitHub', icon: GitIcon, level: 90 },
       { name: 'Jupyter Notebook', icon: JupyterIcon, level: 95 },
     ],
@@ -42,32 +38,18 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
 
 export const PROJECTS: Project[] = [
   {
-    title: 'Customer Churn Prediction',
-    description: 'Developed a machine learning model to predict customer churn for a telecom company, achieving 85% accuracy and helping to reduce churn by 15%.',
-    tags: ['Python', 'Scikit-learn', 'Pandas', 'Classification'],
+    title: 'Student Scholarship Analysis',
+    description: 'Analyzed student performance data to identify key factors influencing scholarship awards and highest scores achieved, providing insights for educational institutions.',
+    tags: ['Python', 'Pandas', 'Data Analysis', 'Visualization'],
     imageUrl: 'https://picsum.photos/seed/project1/600/400',
-    repoUrl: '#',
+    repoUrl: 'https://github.com/SamirAliWebDev/Student_highest_scores_achieved-and-Scholarships_Analysis',
   },
   {
-    title: 'E-commerce Sales Dashboard',
-    description: 'Designed and built an interactive sales dashboard in Tableau to track KPIs, visualize sales trends, and provide actionable insights for marketing strategies.',
-    tags: ['Tableau', 'SQL', 'Data Visualization', 'BI'],
+    title: 'Spotify Artists Trends',
+    description: 'Analyzed Spotify data to identify trending artists and track their popularity over time. Built a dashboard to visualize key metrics and uncover patterns in music trends.',
+    tags: ['Python', 'Pandas', 'API', 'Data Visualization'],
     imageUrl: 'https://picsum.photos/seed/project2/600/400',
-    liveUrl: '#',
-  },
-  {
-    title: 'Market Basket Analysis',
-    description: 'Conducted a market basket analysis to identify product associations, leading to a new cross-selling strategy that increased average order value by 10%.',
-    tags: ['R', 'Apriori Algorithm', 'Data Mining'],
-    imageUrl: 'https://picsum.photos/seed/project3/600/400',
-    repoUrl: '#',
-  },
-    {
-    title: 'Retail Inventory Optimization',
-    description: 'Analyzed historical sales data to create a demand forecasting model, optimizing stock levels across 50+ stores and reducing overstock costs by 20%.',
-    tags: ['Python', 'Time Series', 'Forecasting', 'SQL'],
-    imageUrl: 'https://picsum.photos/seed/project4/600/400',
-    repoUrl: '#',
+    repoUrl: 'https://github.com/SamirAliWebDev/Spotify-Artist_trend',
   },
 ];
 
