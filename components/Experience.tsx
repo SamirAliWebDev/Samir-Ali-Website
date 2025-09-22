@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { EXPERIENCE_ITEMS, EDUCATION_ITEMS } from '../constants';
 import type { ExperienceItem } from '../types';
@@ -17,17 +18,17 @@ const GraduationCapIcon = () => (
 
 
 const Timeline: React.FC<{ items: ExperienceItem[]; icon: React.ReactNode }> = ({ items, icon }) => (
-    <div className="relative border-l-2 border-secondary pl-12">
+    <div className="relative border-l-2 border-secondary-light dark:border-secondary pl-12">
         {items.map((item, index) => (
             <div key={index} className="mb-10 relative">
-                <div className="absolute -left-6 top-1 z-10 flex items-center justify-center bg-accent shadow-xl w-12 h-12 rounded-full ring-8 ring-primary">
+                <div className="absolute -left-6 top-1 z-10 flex items-center justify-center bg-accent shadow-xl w-12 h-12 rounded-full ring-8 ring-primary-light dark:ring-primary">
                     {icon}
                 </div>
-                <div className="bg-secondary rounded-lg shadow-xl w-full p-6 border border-accent/20 hover:border-accent hover:shadow-2xl transition-all duration-300">
+                <div className="bg-secondary-light dark:bg-secondary rounded-lg shadow-xl w-full p-6 border border-accent/10 dark:border-accent/20 hover:border-accent hover:shadow-2xl transition-all duration-1000">
                     <p className="text-accent font-semibold mb-2">{item.date}</p>
-                    <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                    <h4 className="text-base text-muted font-medium mb-3">{item.company}</h4>
-                    <p className="text-muted leading-relaxed text-sm">{item.description}</p>
+                    <h3 className="text-xl font-bold text-dark dark:text-white mb-2">{item.title}</h3>
+                    <h4 className="text-base text-muted-light dark:text-muted font-medium mb-3">{item.company}</h4>
+                    <p className="text-muted-light dark:text-muted leading-relaxed text-sm">{item.description}</p>
                 </div>
             </div>
         ))}
@@ -37,21 +38,21 @@ const Timeline: React.FC<{ items: ExperienceItem[]; icon: React.ReactNode }> = (
 
 const Experience: React.FC = () => {
     return (
-        <section id="experience" className="py-24 bg-primary">
+        <section id="experience" className="py-24 bg-primary-light dark:bg-primary transition-colors duration-1000">
             <div className="container mx-auto px-6">
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl font-extrabold text-white">My Journey</h2>
+                    <h2 className="text-4xl font-extrabold text-dark dark:text-white">My Journey</h2>
                     <div className="w-24 h-1 bg-accent mx-auto mt-4 rounded"></div>
-                    <p className="max-w-3xl mx-auto text-lg text-muted mt-6">A timeline of my personal projects and educational milestones.</p>
+                    <p className="max-w-3xl mx-auto text-lg text-muted-light dark:text-muted mt-6">A timeline of my personal projects and educational milestones.</p>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-20 gap-y-16">
                     <div>
-                        <h3 className="text-3xl font-bold text-white text-center mb-12">Experience</h3>
+                        <h3 className="text-3xl font-bold text-dark dark:text-white text-center mb-12">Experience</h3>
                         <Timeline items={EXPERIENCE_ITEMS} icon={<BriefcaseIcon />} />
                     </div>
                     <div>
-                        <h3 className="text-3xl font-bold text-white text-center mb-12">Education</h3>
+                        <h3 className="text-3xl font-bold text-dark dark:text-white text-center mb-12">Education</h3>
                         <Timeline items={EDUCATION_ITEMS} icon={<GraduationCapIcon />} />
                     </div>
                 </div>

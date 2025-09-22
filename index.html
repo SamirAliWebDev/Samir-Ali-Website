@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: 'class',
         theme: {
           extend: {
             colors: {
@@ -16,6 +17,10 @@
               'accent': '#3671E9',
               'light': '#F8F9FA',
               'muted': '#828282',
+              'primary-light': '#F8F9FA',
+              'secondary-light': '#FFFFFF',
+              'dark': '#0D0D2B',
+              'muted-light': '#6c757d',
             },
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
@@ -94,7 +99,7 @@
 }
 </script>
 </head>
-  <body class="bg-primary text-light font-sans">
+  <body class="bg-primary-light dark:bg-primary text-dark dark:text-light font-sans transition-colors duration-1000">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

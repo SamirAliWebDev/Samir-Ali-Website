@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { NAV_LINKS } from '../constants';
+import ThemeToggle from './ThemeToggle';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,29 +24,32 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-secondary/80 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}>
+    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-1000 ${isScrolled ? 'bg-secondary-light/80 dark:bg-secondary/80 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}>
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="#hero" onClick={(e) => handleLinkClick(e, '#hero')} className="text-2xl font-bold text-white tracking-wider">
+        <a href="#hero" onClick={(e) => handleLinkClick(e, '#hero')} className="text-2xl font-bold text-dark dark:text-white tracking-wider">
           SA<span className="text-accent">.</span>
         </a>
-        <nav className="hidden md:flex space-x-8">
-          {NAV_LINKS.map((link) => (
-            <a key={link.name} href={link.href} onClick={(e) => handleLinkClick(e, link.href)} className="text-light hover:text-accent transition-colors duration-300">
-              {link.name}
-            </a>
-          ))}
-        </nav>
-        <div className="md:hidden">
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white focus:outline-none">
-                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}></path></svg>
-            </button>
+        <div className="flex items-center space-x-8">
+          <nav className="hidden md:flex space-x-8">
+            {NAV_LINKS.map((link) => (
+              <a key={link.name} href={link.href} onClick={(e) => handleLinkClick(e, link.href)} className="text-dark dark:text-light hover:text-accent transition-colors duration-1000">
+                {link.name}
+              </a>
+            ))}
+          </nav>
+          <ThemeToggle />
+          <div className="md:hidden">
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-dark dark:text-white focus:outline-none">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}></path></svg>
+              </button>
+          </div>
         </div>
       </div>
       {isMenuOpen && (
-        <div className="md:hidden bg-secondary/90 backdrop-blur-sm">
+        <div className="md:hidden bg-secondary-light/90 dark:bg-secondary/90 backdrop-blur-sm transition-colors duration-1000">
             <nav className="flex flex-col items-center space-y-4 py-4">
                 {NAV_LINKS.map((link) => (
-                    <a key={link.name} href={link.href} onClick={(e) => handleLinkClick(e, link.href)} className="text-light hover:text-accent transition-colors duration-300">
+                    <a key={link.name} href={link.href} onClick={(e) => handleLinkClick(e, link.href)} className="text-dark dark:text-light hover:text-accent transition-colors duration-1000">
                     {link.name}
                     </a>
                 ))}

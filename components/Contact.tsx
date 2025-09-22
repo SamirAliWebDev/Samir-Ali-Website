@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import { SOCIAL_LINKS } from '../constants';
 
@@ -50,23 +51,23 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-secondary">
+    <section id="contact" className="py-24 bg-secondary-light dark:bg-secondary transition-colors duration-1000">
       <div className="container mx-auto px-6 text-center">
-        <h2 className="text-4xl font-extrabold text-white">Let's Connect</h2>
+        <h2 className="text-4xl font-extrabold text-dark dark:text-white">Let's Connect</h2>
         <div className="w-24 h-1 bg-accent mx-auto mt-4 rounded"></div>
-        <p className="max-w-2xl mx-auto text-lg text-muted my-8">
+        <p className="max-w-2xl mx-auto text-lg text-muted-light dark:text-muted my-8">
           I'm currently seeking new opportunities. If you have a project in mind, a question, or just want to say hello, please use the form below.
         </p>
 
         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto text-left space-y-6">
             <div>
-                <label htmlFor="name" className="block text-sm font-medium text-light mb-2">Name</label>
+                <label htmlFor="name" className="block text-sm font-medium text-dark dark:text-light mb-2">Name</label>
                 <input
                     type="text"
                     id="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-primary border border-accent/30 rounded-md py-3 px-4 text-light focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
+                    className="w-full bg-primary-light dark:bg-primary border border-accent/20 dark:border-accent/30 rounded-md py-3 px-4 text-dark dark:text-light focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-1000"
                     placeholder="Your Name"
                     aria-invalid={!!errors.name}
                     aria-describedby={errors.name ? "name-error" : undefined}
@@ -74,13 +75,13 @@ const Contact: React.FC = () => {
                 {errors.name && <p id="name-error" className="text-red-400 text-sm mt-1">{errors.name}</p>}
             </div>
             <div>
-                <label htmlFor="email" className="block text-sm font-medium text-light mb-2">Email</label>
+                <label htmlFor="email" className="block text-sm font-medium text-dark dark:text-light mb-2">Email</label>
                 <input
                     type="email"
                     id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-primary border border-accent/30 rounded-md py-3 px-4 text-light focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
+                    className="w-full bg-primary-light dark:bg-primary border border-accent/20 dark:border-accent/30 rounded-md py-3 px-4 text-dark dark:text-light focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-1000"
                     placeholder="your.email@example.com"
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? "email-error" : undefined}
@@ -88,13 +89,13 @@ const Contact: React.FC = () => {
                 {errors.email && <p id="email-error" className="text-red-400 text-sm mt-1">{errors.email}</p>}
             </div>
             <div>
-                <label htmlFor="message" className="block text-sm font-medium text-light mb-2">Message</label>
+                <label htmlFor="message" className="block text-sm font-medium text-dark dark:text-light mb-2">Message</label>
                 <textarea
                     id="message"
                     rows={5}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="w-full bg-primary border border-accent/30 rounded-md py-3 px-4 text-light focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
+                    className="w-full bg-primary-light dark:bg-primary border border-accent/20 dark:border-accent/30 rounded-md py-3 px-4 text-dark dark:text-light focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-1000"
                     placeholder="How can I help you?"
                     aria-invalid={!!errors.message}
                     aria-describedby={errors.message ? "message-error" : undefined}
@@ -122,7 +123,7 @@ const Contact: React.FC = () => {
 
         <div className="flex justify-center space-x-6 mt-12">
           {SOCIAL_LINKS.map((link) => (
-            <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors duration-300">
+            <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" className="text-muted-light dark:text-muted hover:text-accent transition-colors duration-300">
               <link.icon className="w-8 h-8" />
             </a>
           ))}

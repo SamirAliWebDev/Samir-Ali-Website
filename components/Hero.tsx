@@ -1,5 +1,6 @@
 import React from 'react';
 import HeroBackgroundGraph from './HeroBackgroundGraph';
+import { useTheme } from '../contexts/ThemeContext';
 
 // Hook to check for media queries, defined locally
 const useMediaQuery = (query: string) => {
@@ -19,16 +20,33 @@ const useMediaQuery = (query: string) => {
 const Hero: React.FC = () => {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const materializeClass = isMobile ? 'animate-materialize-mobile' : 'animate-materialize';
+  const { theme } = useTheme();
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center bg-cover bg-center overflow-hidden" style={{backgroundImage: "linear-gradient(rgba(13, 13, 43, 0.8), rgba(13, 13, 43, 1))"}}>
+    <section id="hero" className="relative min-h-screen flex items-center bg-cover bg-center overflow-hidden">
       
+      {/* Background Gradients with Fade Transition */}
+      <div 
+        className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+        style={{ 
+          backgroundImage: 'linear-gradient(180deg, #EBF1FF 0%, #F8F9FA 100%)',
+          opacity: theme === 'light' ? 1 : 0 
+        }}
+      />
+      <div 
+        className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+        style={{ 
+          backgroundImage: 'linear-gradient(rgba(13, 13, 43, 0.8), rgba(13, 13, 43, 1))',
+          opacity: theme === 'dark' ? 1 : 0
+        }}
+      />
+
       {/* Animated Graph Background */}
-      <div className="absolute inset-0 z-0 opacity-50">
+      <div className="absolute inset-0 z-0 opacity-20 dark:opacity-50 transition-opacity duration-1000 ease-in-out">
         <HeroBackgroundGraph />
       </div>
 
-      <div className="absolute inset-0 z-0 opacity-50">
+      <div className="absolute inset-0 z-0 opacity-50 dark:opacity-50">
         <div 
           className="absolute top-1/4 -left-24 w-72 h-72 rounded-full animate-float-1" 
           style={{ 
@@ -37,11 +55,23 @@ const Hero: React.FC = () => {
           }}>
         </div>
         <div 
-          className="absolute bottom-0 -right-24 w-96 h-96 rounded-full animate-float-2" 
-          style={{ 
-            background: 'radial-gradient(circle, rgba(19, 19, 52, 0.8) 0%, transparent 70%)',
-            willChange: 'transform' 
-          }}>
+          className="absolute bottom-0 -right-24 w-96 h-96 rounded-full animate-float-2"
+          style={{ willChange: 'transform' }}
+        >
+            <div
+                className="absolute inset-0 rounded-full transition-opacity duration-1000 ease-in-out"
+                style={{
+                background: 'radial-gradient(circle, rgba(54, 113, 233, 0.15) 0%, transparent 70%)',
+                opacity: theme === 'light' ? 1 : 0,
+                }}
+            />
+            <div
+                className="absolute inset-0 rounded-full transition-opacity duration-1000 ease-in-out"
+                style={{
+                background: 'radial-gradient(circle, rgba(19, 19, 52, 0.8) 0%, transparent 70%)',
+                opacity: theme === 'dark' ? 1 : 0,
+                }}
+            />
         </div>
         <div 
           className="absolute bottom-1/4 -right-12 w-64 h-64 rounded-full animate-pulse-slow" 
@@ -58,12 +88,12 @@ const Hero: React.FC = () => {
           <img 
             src="https://i.postimg.cc/QdRrrYvR/Remove-background-project.png" 
             alt="Samir Ali" 
-            className={`w-48 h-48 rounded-full border-4 border-accent shadow-xl object-cover bg-secondary ${materializeClass}`}
+            className={`w-48 h-48 rounded-full border-4 border-accent shadow-xl object-cover bg-secondary-light dark:bg-secondary transition-colors duration-1000 ${materializeClass}`}
             style={{ willChange: 'transform, opacity' }}
           />
           <div className="md:text-left">
             <h1 
-              className={`text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4 ${materializeClass}`}
+              className={`text-4xl md:text-6xl font-extrabold text-dark dark:text-white leading-tight mb-4 ${materializeClass}`}
               style={{ animationDelay: '300ms', willChange: 'transform, opacity' }}
             >
               Samir Ali
@@ -75,7 +105,7 @@ const Hero: React.FC = () => {
               Data Analyst
             </p>
             <p 
-              className={`max-w-2xl text-lg text-muted mb-8 ${materializeClass}`}
+              className={`max-w-2xl text-lg text-muted-light dark:text-muted mb-8 ${materializeClass}`}
               style={{ animationDelay: '900ms', willChange: 'transform, opacity' }}
             >
               Detail-oriented Data Analyst with 12 months of experience in data cleaning, analysis, and visualization using Python, SQL, and Power BI.
@@ -87,7 +117,7 @@ const Hero: React.FC = () => {
               <a href="#projects" className="bg-accent text-white font-bold py-3 px-8 rounded-full hover:bg-blue-500 transition-all duration-300 shadow-lg">
                 View My Work
               </a>
-              <a href="#contact" className="bg-secondary text-white font-bold py-3 px-8 rounded-full hover:bg-gray-700 transition-all duration-300 shadow-lg">
+              <a href="#contact" className="bg-secondary-light dark:bg-secondary text-dark dark:text-white font-bold py-3 px-8 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-1000 shadow-lg">
                 Get In Touch
               </a>
             </div>

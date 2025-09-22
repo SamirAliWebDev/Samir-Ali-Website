@@ -33,7 +33,7 @@ const HeroBackgroundGraph: React.FC = () => {
       {bars.map((bar, i) => (
         <div
           key={i}
-          className="w-[1%] bg-gradient-to-t from-accent/40 to-accent/80 rounded-t-full animate-fluctuate"
+          className="w-[1%] bg-gradient-to-t from-accent/30 to-accent/60 dark:from-accent/40 dark:to-accent/80 rounded-t-full animate-fluctuate"
           style={{
             animationDuration: bar.duration,
             animationDelay: bar.delay,

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { useInView, animate } from 'framer-motion';
 import { STATS } from '../constants';
@@ -39,14 +40,14 @@ const StatCard: React.FC<{ stat: Stat }> = ({ stat }) => {
     }, [isInView, stat.value, stat.suffix, isMobile]);
 
     return (
-        <div className="bg-secondary p-8 rounded-xl text-center border border-accent/20 shadow-lg hover:shadow-2xl hover:border-accent transition-all duration-300">
+        <div className="bg-secondary-light dark:bg-secondary p-8 rounded-xl text-center border border-accent/10 dark:border-accent/20 shadow-lg hover:shadow-2xl hover:border-accent transition-all duration-1000">
             <p 
                 ref={ref}
                 className="text-5xl font-extrabold text-accent"
             >
                 0{stat.suffix}
             </p>
-            <p className="text-muted mt-2 text-lg">{stat.label}</p>
+            <p className="text-muted-light dark:text-muted mt-2 text-lg">{stat.label}</p>
         </div>
     );
 }
@@ -54,7 +55,7 @@ const StatCard: React.FC<{ stat: Stat }> = ({ stat }) => {
 
 const Stats: React.FC = () => {
   return (
-    <section className="py-20 bg-primary">
+    <section className="py-20 bg-primary-light dark:bg-primary transition-colors duration-1000">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {STATS.map((stat, index) => (

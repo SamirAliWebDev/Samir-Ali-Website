@@ -1,7 +1,9 @@
+
 import React from 'react';
 import { SKILL_CATEGORIES } from '../constants';
 import type { SkillCategory } from '../types';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { useTheme } from '../contexts/ThemeContext';
 
 // Hook to check for media queries, defined locally
 const useMediaQuery = (query: string) => {
@@ -25,45 +27,53 @@ const chartData = SKILL_CATEGORIES.flatMap(cat => cat.skills).map(skill => ({
 
 
 const SkillCard: React.FC<{ category: SkillCategory }> = ({ category }) => (
-  <div className="bg-secondary p-6 rounded-lg border border-accent/20">
-    <h3 className="text-2xl font-bold text-white mb-4">{category.title}</h3>
+  <div className="bg-secondary-light dark:bg-secondary p-6 rounded-lg border border-accent/10 dark:border-accent/20 transition-colors duration-1000">
+    <h3 className="text-2xl font-bold text-dark dark:text-white mb-4">{category.title}</h3>
     <div className="grid grid-cols-2 gap-4">
       {category.skills.map((skill) => (
         <div key={skill.name} className="flex items-center space-x-3">
           <skill.icon className="w-8 h-8 text-accent" />
-          <span className="text-muted">{skill.name}</span>
+          <span className="text-muted-light dark:text-muted">{skill.name}</span>
         </div>
       ))}
     </div>
   </div>
 );
 
-
 const Skills: React.FC = () => {
   const isMobile = useMediaQuery('(max-width: 768px)');
+  const { theme } = useTheme();
+
   const yAxisWidth = isMobile ? 100 : 150;
   const yAxisTickSize = isMobile ? 11 : 14;
   const barThickness = isMobile ? 24 : 22;
   const chartMinHeight = isMobile ? '360px' : '480px';
+  
+  const tickColor = theme === 'dark' ? '#F8F9FA' : '#0D0D2B';
+  const tooltipBg = theme === 'dark' ? 'rgba(13, 13, 43, 0.9)' : 'rgba(255, 255, 255, 0.9)';
+  const tooltipLabelColor = theme === 'dark' ? '#F8F9FA' : '#0D0D2B';
 
   return (
-    <section id="skills" className="py-24 bg-primary">
+    <section id="skills" className="py-24 bg-primary-light dark:bg-primary transition-colors duration-1000">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-extrabold text-white">Technical Skills</h2>
-           <div className="w-24 h-1 bg-accent mx-auto mt-4 rounded"></div>
+          <h2 className="text-4xl font-extrabold text-dark dark:text-white">Technical Skills</h2>
+          <div className="w-24 h-1 bg-accent mx-auto mt-4 rounded"></div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="space-y-8">
+          <div className="flex flex-col gap-8">
             {SKILL_CATEGORIES.map((category) => (
-              <SkillCard key={category.title} category={category} />
+              <div key={category.title}>
+                <SkillCard category={category} />
+              </div>
             ))}
           </div>
-          <div 
-            className="bg-secondary p-6 rounded-lg border border-accent/20 flex flex-col items-center justify-center"
+          
+          <div
             style={{ minHeight: chartMinHeight }}
+            className="bg-secondary-light dark:bg-secondary p-6 rounded-lg border border-accent/10 dark:border-accent/20 flex flex-col items-center justify-center transition-colors duration-1000"
           >
-            <h3 className="text-2xl font-bold text-white mb-4">Skills Proficiency</h3>
+            <h3 className="text-2xl font-bold text-dark dark:text-white mb-4">Skills Proficiency</h3>
             <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                     layout="vertical"
@@ -81,21 +91,21 @@ const Skills: React.FC = () => {
                     <YAxis 
                         dataKey="subject" 
                         type="category" 
-                        tick={{ fill: '#F8F9FA', fontSize: yAxisTickSize }} 
+                        tick={{ fill: tickColor, fontSize: yAxisTickSize }} 
                         axisLine={false} 
                         tickLine={false}
                         width={yAxisWidth}
                     />
                     <Tooltip 
-                        cursor={{fill: 'rgba(255, 255, 255, 0.1)'}}
+                        cursor={{fill: 'rgba(54, 113, 233, 0.1)'}}
                         contentStyle={{ 
-                        backgroundColor: 'rgba(13, 13, 43, 0.9)', 
-                        borderColor: '#3671E9',
-                        borderRadius: '0.5rem',
-                        boxShadow: '0 0 10px rgba(54, 113, 233, 0.5)'
+                            backgroundColor: tooltipBg, 
+                            borderColor: '#3671E9',
+                            borderRadius: '0.5rem',
+                            boxShadow: '0 0 10px rgba(54, 113, 233, 0.5)'
                         }}
-                        labelStyle={{ color: '#F8F9FA', fontWeight: 'bold' }}
-                        itemStyle={{ color: '#80A5F5' }}
+                        labelStyle={{ color: tooltipLabelColor, fontWeight: 'bold' }}
+                        itemStyle={{ color: '#3671E9' }}
                     />
                     <Bar 
                         dataKey="Proficiency" 
