@@ -31,6 +31,7 @@
               'marker-fade-out': 'marker-fade-out 0.8s ease-out forwards',
               'reveal-from-right': 'reveal-from-right 3.2s cubic-bezier(0.33, 1, 0.68, 1) forwards',
               'reveal-from-right-mobile': 'reveal-from-right 2.0s cubic-bezier(0.33, 1, 0.68, 1) forwards',
+              'fluctuate': 'fluctuate 6s ease-in-out infinite',
             },
             keyframes: {
               'gradient-bg': {
@@ -70,6 +71,10 @@
               'reveal-from-right': {
                 'from': { transform: 'scaleX(0)' },
                 'to': { transform: 'scaleX(1)' },
+              },
+              'fluctuate': {
+                '0%, 100%': { height: '10%' },
+                '50%': { height: '70%' },
               },
             },
           },

@@ -1,54 +1,29 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 interface Props {
   children: React.ReactNode;
 }
 
-// Hook to check for media queries, defined locally to avoid creating new files.
-const useMediaQuery = (query: string) => {
-  const [matches, setMatches] = useState(false);
-  useEffect(() => {
-    const media = window.matchMedia(query);
-    if (media.matches !== matches) {
-      setMatches(media.matches);
-    }
-    const listener = () => setMatches(media.matches);
-    window.addEventListener('resize', listener);
-    return () => window.removeEventListener('resize', listener);
-  }, [matches, query]);
-  return matches;
-};
-
 const AnimatedSection: React.FC<Props> = ({ children }) => {
   const ref = useRef(null);
-  const isMobile = useMediaQuery('(max-width: 768px)');
   
-  // An element is "in view" when it's in the central 60% of the viewport.
-  // This provides a larger trigger area, making the focus effect smoother.
+  // Trigger the animation when the element is 20% in view.
+  // By removing 'once: true', the animation will trigger every time it enters/leaves the viewport.
   const isInView = useInView(ref, { 
-    margin: "-20% 0px -20% 0px",
-    once: false 
+    amount: 0.2
   });
 
-  // Restored the `scale` animation for a "focus" effect on desktop.
+  // Animation variants for a smooth fade-in and slide-up effect
   const variants = {
-    visible: isMobile
-      ? { // Mobile-friendly animation (just opacity)
-          opacity: 1,
-        }
-      : { // Desktop animation with a scale effect
-          opacity: 1,
-          scale: 1,
-        },
-    hidden: isMobile
-      ? {
-          opacity: 0.6, // Make unfocused sections a bit more visible
-        }
-      : {
-          opacity: 0.6,
-          scale: 0.98, // A subtle scale-down for unfocused sections
-        },
+    hidden: { 
+      opacity: 0,
+      y: 50, // Start 50px below its final position
+    },
+    visible: {
+      opacity: 1,
+      y: 0, // End at its final position
+    },
   };
 
   return (
@@ -57,7 +32,7 @@ const AnimatedSection: React.FC<Props> = ({ children }) => {
       variants={variants}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
-      transition={{ duration: isMobile ? 0.5 : 0.7, ease: 'easeOut' }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
     >
       {children}
     </motion.div>

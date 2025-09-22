@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { BarChart, Bar, ResponsiveContainer } from 'recharts';
+import React, { useMemo } from 'react';
 
 // Hook to check for media queries
 const useMediaQuery = (query: string) => {
@@ -16,79 +15,34 @@ const useMediaQuery = (query: string) => {
   return matches;
 };
 
-// Generates the initial set of random data points for the bar chart.
-const generateInitialChartData = (points: number) => {
-  const data = [];
-  for (let i = 0; i < points; i++) {
-    // Start with a random value within a reasonable range
-    const value = 10 + Math.random() * 30;
-    data.push({ v: value });
-  }
-  return data;
-};
-
 const HeroBackgroundGraph: React.FC = () => {
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const points = isMobile ? 30 : 75;
-  
-  const [data, setData] = useState(() => generateInitialChartData(points));
+  const points = isMobile ? 30 : 70;
 
-  useEffect(() => {
-    // Reset data whenever the number of points changes (e.g., on resize)
-    setData(generateInitialChartData(points));
-
-    let animationFrameId: number;
-    let lastUpdateTime = 0;
-    // A slightly slower interval creates a more deliberate, less frantic animation
-    const updateInterval = 200; 
-
-    // Animation loop using requestAnimationFrame for efficiency
-    const animate = (timestamp: number) => {
-      if (timestamp - lastUpdateTime > updateInterval) {
-        lastUpdateTime = timestamp;
-        setData(currentData => 
-          currentData.map(point => {
-            // Each bar moves up or down by a small random amount
-            let newValue = point.v + (Math.random() * 8 - 4);
-            // Clamp the value to ensure bars don't get too tall or too short
-            newValue = Math.max(10, Math.min(45, newValue));
-            return { v: newValue };
-          })
-        );
-      }
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animationFrameId = requestAnimationFrame(animate);
-
-    // Clean up the animation frame when the component unmounts or effect re-runs
-    return () => cancelAnimationFrame(animationFrameId);
+  const bars = useMemo(() => {
+    return Array.from({ length: points }).map((_, i) => ({
+      // Random duration between 3s and 8s for variety
+      duration: `${3 + Math.random() * 5}s`,
+      // Random delay up to 5s to de-synchronize the animations
+      delay: `-${Math.random() * 5}s`,
+    }));
   }, [points]);
 
   return (
-    <div className="w-full h-full">
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={data}
-          margin={{ top: 10, right: 0, left: 0, bottom: 10 }}
-          barCategoryGap="10%"
-        >
-          <defs>
-            <linearGradient id="colorGraph" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#3671E9" stopOpacity={0.8}/>
-              <stop offset="95%" stopColor="#3671E9" stopOpacity={0.2}/>
-            </linearGradient>
-          </defs>
-          <Bar
-            dataKey="v"
-            fill="url(#colorGraph)"
-            isAnimationActive={true}
-            animationDuration={200}
-            animationEasing="ease-in-out"
-            radius={[2, 2, 0, 0]}
-          />
-        </BarChart>
-      </ResponsiveContainer>
+    <div className="w-full h-full flex items-end justify-around overflow-hidden" aria-hidden="true">
+      {bars.map((bar, i) => (
+        <div
+          key={i}
+          className="w-[1%] bg-gradient-to-t from-accent/40 to-accent/80 rounded-t-full animate-fluctuate"
+          style={{
+            animationDuration: bar.duration,
+            animationDelay: bar.delay,
+            animationTimingFunction: 'ease-in-out',
+            animationIterationCount: 'infinite',
+            willChange: 'height',
+          }}
+        />
+      ))}
     </div>
   );
 };
