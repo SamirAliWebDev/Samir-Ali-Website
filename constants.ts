@@ -93,6 +93,6 @@ export const STATS: Stat[] = [
 
 export const SOCIAL_LINKS = [
     { name: 'GitHub', icon: GithubIcon, url: 'https://github.com/SamirAliWebDev' },
-    { name: 'LinkedIn', icon: LinkedinIcon, url: 'https://www.linkedin.com/in/SamirAliWebDev' },
+    { name: 'LinkedIn', icon: LinkedinIcon, url: 'https://www.linkedin.com/in/samir-ali-1332b2375/' },
     { name: 'Email', icon: MailIcon, url: 'mailto:samirali.webdev@gmail.com' }
 ];

@@ -8,10 +8,10 @@ interface Props {
 const AnimatedSection: React.FC<Props> = ({ children }) => {
   const ref = useRef(null);
   
-  // Trigger the animation when the element is 20% in view.
-  // By removing 'once: true', the animation will trigger every time it enters/leaves the viewport.
+  // Trigger the animation once when the element is 20% in view for better performance.
   const isInView = useInView(ref, { 
-    amount: 0.2
+    amount: 0.2,
+    once: true 
   });
 
   // Animation variants for a smooth fade-in and slide-up effect
@@ -33,6 +33,7 @@ const AnimatedSection: React.FC<Props> = ({ children }) => {
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
       transition={{ duration: 0.8, ease: 'easeOut' }}
+      className="transform-gpu"
     >
       {children}
     </motion.div>

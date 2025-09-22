@@ -41,11 +41,25 @@ const Hero: React.FC = () => {
         }}
       />
 
-      {/* Animated Graph Background */}
-      <div className="absolute inset-0 z-0 opacity-20 dark:opacity-50 transition-opacity duration-1000 ease-in-out">
-        <HeroBackgroundGraph />
-      </div>
+      {/* Conditional Background Animation: Graph for desktop, Pulse for mobile */}
+      {isMobile ? (
+        <div className="absolute inset-0 z-0 flex items-center justify-center overflow-hidden" aria-hidden="true">
+          <div
+            className="w-[80vw] h-[80vw] max-w-[500px] max-h-[500px] rounded-full animate-pulse-slow"
+            style={{
+              background: 'radial-gradient(circle, rgba(54, 113, 233, 0.15) 0%, transparent 70%)',
+              animationDuration: '15s',
+              willChange: 'transform, opacity',
+            }}
+          />
+        </div>
+      ) : (
+        <div className="absolute inset-0 z-0 opacity-20 dark:opacity-50 transition-opacity duration-1000 ease-in-out">
+          <HeroBackgroundGraph />
+        </div>
+      )}
 
+      {/* Decorative Blobs */}
       <div className="absolute inset-0 z-0 opacity-50 dark:opacity-50">
         <div 
           className="absolute top-1/4 -left-24 w-72 h-72 rounded-full animate-float-1" 
@@ -88,30 +102,30 @@ const Hero: React.FC = () => {
           <img 
             src="https://i.postimg.cc/QdRrrYvR/Remove-background-project.png" 
             alt="Samir Ali" 
-            className={`w-48 h-48 rounded-full border-4 border-accent shadow-xl object-cover bg-secondary-light dark:bg-secondary transition-colors duration-1000 ${materializeClass}`}
+            className={`w-48 h-48 rounded-full border-4 border-accent shadow-xl object-cover bg-secondary-light dark:bg-secondary transition-colors duration-1000 transform-gpu ${materializeClass}`}
             style={{ willChange: 'transform, opacity' }}
           />
           <div className="md:text-left">
             <h1 
-              className={`text-4xl md:text-6xl font-extrabold text-dark dark:text-white leading-tight mb-4 ${materializeClass}`}
+              className={`text-4xl md:text-6xl font-extrabold text-dark dark:text-white leading-tight mb-4 transform-gpu ${materializeClass}`}
               style={{ animationDelay: '300ms', willChange: 'transform, opacity' }}
             >
               Samir Ali
             </h1>
             <p 
-              className={`text-2xl md:text-3xl text-accent font-semibold mb-6 ${materializeClass}`}
+              className={`text-2xl md:text-3xl text-accent font-semibold mb-6 transform-gpu ${materializeClass}`}
               style={{ animationDelay: '600ms', willChange: 'transform, opacity' }}
             >
               Data Analyst
             </p>
             <p 
-              className={`max-w-2xl text-lg text-muted-light dark:text-muted mb-8 ${materializeClass}`}
+              className={`max-w-2xl text-lg text-muted-light dark:text-muted mb-8 transform-gpu ${materializeClass}`}
               style={{ animationDelay: '900ms', willChange: 'transform, opacity' }}
             >
               Detail-oriented Data Analyst with 12 months of experience in data cleaning, analysis, and visualization using Python, SQL, and Power BI.
             </p>
             <div 
-              className={`flex justify-center md:justify-start space-x-4 ${materializeClass}`}
+              className={`flex justify-center md:justify-start space-x-4 transform-gpu ${materializeClass}`}
               style={{ animationDelay: '1200ms', willChange: 'transform, opacity' }}
             >
               <a href="#projects" className="bg-accent text-white font-bold py-3 px-8 rounded-full hover:bg-blue-500 transition-all duration-300 shadow-lg">
